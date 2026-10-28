@@ -1,12 +1,12 @@
-# Looking Closely
+﻿# Looking Closely
 
 Interactive site for three Chinese / Taiwanese American picture books and a reflection. Built for GitHub Pages.
 
 ## Books
 
-1. *Eyes That Speak to the Stars* — Joanna Ho, illus. Dung Ho  
-2. *The Ugly Vegetables* — Grace Lin  
-3. *I Dream of Popo* — Livia Blackburne, illus. Julia Kuo  
+1. *Eyes That Speak to the Stars*  -  Joanna Ho, illus. Dung Ho  
+2. *The Ugly Vegetables*  -  Grace Lin  
+3. *I Dream of Popo*  -  Livia Blackburne, illus. Julia Kuo  
 
 ## Local preview
 
@@ -47,4 +47,4 @@ git push -u origin main
 4. Site URL will be `https://YOUR_USERNAME.github.io/YOUR_REPO/`  
    (or `https://YOUR_USERNAME.github.io/` if the repo is named `YOUR_USERNAME.github.io`).
 
-If the site is in a project repo (not `username.github.io`), you may need to set a base path — ask and we can adjust links.
+If the site is in a project repo (not `username.github.io`), you may need to set a base path  -  ask and we can adjust links.

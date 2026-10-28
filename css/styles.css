@@ -487,6 +487,21 @@ a:hover {
   margin-top: 2rem;
 }
 
+.book-top-actions {
+  margin: 0 0 1.75rem;
+}
+
+.editable-note {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-style: italic;
+  opacity: 0.7;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background: rgba(26, 36, 48, 0.05);
+  border: 1px dashed rgba(26, 36, 48, 0.2);
+}
+
 .btn {
   font-family: var(--font-ui);
   font-size: 0.85rem;
