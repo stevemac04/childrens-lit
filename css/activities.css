@@ -1,0 +1,549 @@
+.activity-shell {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+.activity-shell h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 550;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 0.75rem;
+}
+
+.activity-intro {
+  margin: 0 0 1.75rem;
+  opacity: 0.85;
+  max-width: 40rem;
+}
+
+.progress-pill {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 0.45rem 0.85rem;
+  background: rgba(26, 36, 48, 0.07);
+  margin-bottom: 1.25rem;
+}
+
+/* ——— Garden / vegetables ——— */
+.garden {
+  position: relative;
+  min-height: 22rem;
+  border-radius: 0;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #9ec5e0 0%, #c5dce8 38%, #d8c89a 38%, #d8c89a 52%, #5a7a48 52%, #3d5c45 100%);
+  box-shadow: 0 18px 40px rgba(26, 36, 48, 0.15);
+  margin-bottom: 1.5rem;
+}
+
+.garden-sky-deco {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.soil-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 3px;
+  background: rgba(90, 60, 30, 0.25);
+}
+
+.veg-bed {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 28%;
+  bottom: 8%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem 0.75rem;
+  align-items: end;
+}
+
+@media (max-width: 600px) {
+  .veg-bed {
+    grid-template-columns: repeat(2, 1fr);
+    top: 22%;
+  }
+  .garden {
+    min-height: 32rem;
+  }
+}
+
+.veg {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 6.5rem;
+  transition: transform 0.35s var(--ease);
+  font-family: var(--font-ui);
+}
+
+.veg:hover:not(:disabled) {
+  transform: translateY(-6px);
+}
+
+.veg:focus-visible {
+  outline: 3px solid var(--ember);
+  outline-offset: 4px;
+}
+
+.veg-sprout {
+  width: 3.2rem;
+  height: 3.8rem;
+  border-radius: 40% 40% 20% 20%;
+  position: relative;
+  box-shadow: inset -6px -8px 0 rgba(0, 0, 0, 0.08);
+  transition: transform 0.45s var(--ease), opacity 0.35s;
+}
+
+.veg-sprout::before,
+.veg-sprout::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: inherit;
+}
+
+.veg[data-kind="leafy"] .veg-sprout {
+  background: #4f8f4a;
+  width: 2.6rem;
+  height: 3.4rem;
+  border-radius: 50% 50% 40% 40%;
+}
+
+.veg[data-kind="redleaf"] .veg-sprout {
+  background: linear-gradient(180deg, #6aa85c 30%, #a83d55 100%);
+  width: 2.8rem;
+  height: 3.2rem;
+}
+
+.veg[data-kind="grass"] .veg-sprout {
+  background: transparent;
+  box-shadow: none;
+  width: 2.4rem;
+  height: 3.6rem;
+}
+
+.veg[data-kind="grass"] .veg-sprout::before,
+.veg[data-kind="grass"] .veg-sprout::after {
+  width: 0.35rem;
+  height: 100%;
+  background: #4d8a3e;
+  border-radius: 2px;
+  left: 40%;
+  top: 0;
+}
+
+.veg[data-kind="grass"] .veg-sprout::after {
+  left: 60%;
+  height: 85%;
+  top: 15%;
+  background: #5fa04c;
+}
+
+.veg[data-kind="frilly"] .veg-sprout {
+  background: #5b9a4e;
+  border-radius: 30% 70% 40% 60%;
+  width: 2.9rem;
+  height: 3.3rem;
+}
+
+.veg[data-kind="bumpy"] .veg-sprout {
+  background: #3d6b3a;
+  width: 3.4rem;
+  height: 1.6rem;
+  border-radius: 40% 50% 45% 50%;
+  margin-bottom: 0.3rem;
+}
+
+.veg[data-kind="ridge"] .veg-sprout {
+  background: #7fad68;
+  width: 2.4rem;
+  height: 3.5rem;
+  border-radius: 40% 40% 30% 30%;
+}
+
+.veg[data-kind="bitter"] .veg-sprout {
+  background: #9bb85a;
+  width: 2.8rem;
+  height: 3.2rem;
+  border-radius: 45%;
+  box-shadow: inset 0 0 0 2px rgba(70, 90, 30, 0.2);
+}
+
+.veg[data-kind="gourd"] .veg-sprout {
+  background: #e6d28a;
+  width: 2.2rem;
+  height: 3.6rem;
+  border-radius: 50% 50% 45% 45% / 35% 35% 55% 55%;
+}
+
+.veg-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #f3efe6;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  margin-top: 0.35rem;
+  opacity: 0.9;
+}
+
+.veg.is-pulled {
+  pointer-events: none;
+}
+
+.veg.is-pulled .veg-sprout {
+  transform: translateY(-120%) scale(0.4);
+  opacity: 0;
+}
+
+.veg.is-pulled .veg-label {
+  opacity: 0.45;
+}
+
+.veg-hole {
+  width: 1.6rem;
+  height: 0.55rem;
+  background: rgba(40, 25, 10, 0.35);
+  border-radius: 50%;
+  margin-top: -0.2rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.veg.is-pulled .veg-hole {
+  opacity: 1;
+}
+
+.veg-panel {
+  background: rgba(255, 252, 246, 0.92);
+  border: 1px solid rgba(26, 36, 48, 0.1);
+  padding: 1.25rem 1.4rem;
+  min-height: 8.5rem;
+  margin-bottom: 1.25rem;
+  animation: rise 0.4s var(--ease);
+}
+
+.veg-panel[hidden] {
+  display: none !important;
+}
+
+.veg-panel .chars {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 0.35rem;
+  letter-spacing: 0.08em;
+}
+
+.veg-panel .pinyin {
+  font-family: var(--font-ui);
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.veg-panel .say {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--ember);
+  margin: 0 0 0.75rem;
+}
+
+.veg-panel .about {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.garden-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.soup-stage {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(160deg, #fff8e8, #f0e2c4);
+  border: 1px solid rgba(196, 92, 58, 0.2);
+  text-align: center;
+  animation: rise 0.6s var(--ease);
+}
+
+.soup-stage[hidden] {
+  display: none !important;
+}
+
+.soup-pot {
+  width: 7rem;
+  height: 5rem;
+  margin: 0.5rem auto 1rem;
+  background: #4a5560;
+  border-radius: 10% 10% 40% 40%;
+  position: relative;
+  box-shadow: inset 0 10px 0 #6a7580;
+}
+
+.soup-pot::before {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 18%;
+  height: 55%;
+  background: #d4a85a;
+  border-radius: 40%;
+  animation: simmer 2s ease-in-out infinite;
+}
+
+.soup-pot::after {
+  content: "♨";
+  position: absolute;
+  top: -1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.55;
+  font-size: 1.2rem;
+}
+
+.flowers {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  font-size: 2rem;
+}
+
+@keyframes simmer {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+/* ——— Eyes look choices ——— */
+.look-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 720px) {
+  .look-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.look-choice {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  padding: 1.4rem 1.25rem;
+  min-height: 11rem;
+  color: #f7f3ea;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.35s var(--ease);
+  font-family: var(--font-body);
+}
+
+.look-choice::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--look-bg);
+  transition: transform 0.5s var(--ease);
+}
+
+.look-choice:hover {
+  transform: translateY(-4px);
+}
+
+.look-choice:hover::before {
+  transform: scale(1.05);
+}
+
+.look-choice:focus-visible {
+  outline: 3px solid var(--ember);
+  outline-offset: 3px;
+}
+
+.look-choice.is-active {
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.85);
+}
+
+.look-choice[data-look="sky"] {
+  --look-bg: linear-gradient(160deg, #1e3550, #7a9bb8 70%, #e8d9a8);
+}
+
+.look-choice[data-look="space"] {
+  --look-bg: linear-gradient(160deg, #0d1020, #2a1f4a 55%, #6b4a8f);
+}
+
+.look-choice[data-look="didi"] {
+  --look-bg: linear-gradient(160deg, #3a2a28, #c45c3a 70%, #e8b48a);
+}
+
+.look-kicker {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 0.4rem;
+}
+
+.look-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 550;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.look-blurb {
+  margin-top: 1.25rem;
+  padding: 1.35rem 1.5rem;
+  background: rgba(255, 252, 246, 0.95);
+  border-left: 3px solid var(--sky);
+  animation: rise 0.45s var(--ease);
+}
+
+.look-blurb[hidden] {
+  display: none !important;
+}
+
+.look-blurb h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0 0 0.6rem;
+}
+
+.look-blurb p {
+  margin: 0;
+}
+
+/* ——— Popo remember ——— */
+.remember-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 720px) {
+  .remember-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.remember-card {
+  appearance: none;
+  border: 1px solid rgba(26, 36, 48, 0.12);
+  background: rgba(255, 252, 246, 0.7);
+  cursor: pointer;
+  text-align: left;
+  padding: 1.35rem 1.2rem;
+  min-height: 10rem;
+  transition: transform 0.35s var(--ease), background 0.25s, border-color 0.25s;
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.remember-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(26, 36, 48, 0.28);
+}
+
+.remember-card.is-active {
+  background: #fff;
+  border-color: var(--ember);
+  box-shadow: 0 12px 28px rgba(26, 36, 48, 0.1);
+}
+
+.remember-card:focus-visible {
+  outline: 3px solid var(--ember);
+  outline-offset: 3px;
+}
+
+.remember-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.65rem;
+  display: block;
+}
+
+.remember-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 550;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.02em;
+}
+
+.remember-card .hint {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  opacity: 0.65;
+  margin: 0;
+}
+
+.remember-detail {
+  margin-top: 1.25rem;
+  padding: 1.35rem 1.5rem;
+  background: rgba(107, 74, 94, 0.08);
+  border-left: 3px solid #6b4a5e;
+  animation: rise 0.45s var(--ease);
+}
+
+.remember-detail[hidden] {
+  display: none !important;
+}
+
+.remember-detail h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  margin: 0 0 0.6rem;
+}
+
+.remember-detail p {
+  margin: 0 0 0.75rem;
+}
+
+.remember-detail p:last-child {
+  margin-bottom: 0;
+}
+
+.reset-link {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  background: none;
+  border: 0;
+  color: var(--sky);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  padding: 0;
+}
+
+.reset-link:hover {
+  color: var(--ember);
+}

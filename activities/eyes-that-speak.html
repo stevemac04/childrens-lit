@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,550;0,9..144,600;1,9..144,400&family=Outfit:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/activities.css" />
 </head>
 <body>
   <header class="site-header">
@@ -22,17 +23,70 @@
 
   <main class="page">
     <a class="page-back" href="../books/eyes-that-speak.html">← Back to book</a>
-    <article class="reflection-body">
-      <p class="eyebrow" style="font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ember);">Activity</p>
-      <h1>Eyes That Speak to the Stars</h1>
-      <div class="placeholder-note">
-        Activity coming next — paste your prompts, materials, and steps here when you’re ready.
+
+    <div class="activity-shell">
+      <p class="eyebrow" style="font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ember);margin:0 0 0.5rem;">Activity</p>
+      <h1>Where will you look?</h1>
+      <p class="activity-intro">In the book, the boy’s eyes rise to the skies and speak to the stars. Choose a place to look — and see what his eyes can hold.</p>
+
+      <div class="look-grid" role="group" aria-label="Choose where to look">
+        <button type="button" class="look-choice" data-look="sky" aria-pressed="false">
+          <span class="look-kicker">Look 01</span>
+          <h2 class="look-title">To the sky</h2>
+        </button>
+        <button type="button" class="look-choice" data-look="space" aria-pressed="false">
+          <span class="look-kicker">Look 02</span>
+          <h2 class="look-title">Into space</h2>
+        </button>
+        <button type="button" class="look-choice" data-look="didi" aria-pressed="false">
+          <span class="look-kicker">Look 03</span>
+          <h2 class="look-title">Into Didi’s eyes</h2>
+        </button>
       </div>
-    </article>
+
+      <div class="look-blurb" id="look-blurb" hidden aria-live="polite">
+        <h2 id="blurb-title"></h2>
+        <p id="blurb-text"></p>
+      </div>
+    </div>
   </main>
 
   <footer class="site-footer">
     <p>Looking Closely · Children’s literature project</p>
   </footer>
+
+  <script>
+    const blurbs = {
+      sky: {
+        title: "Looking to the sky",
+        text: "His eyes rise toward the sky and carry the past with them — Agong, Baba, and the long trail of family who came before. Looking up means remembering legacy: who you come from, and how that history lives in your face, your name, and your story."
+      },
+      space: {
+        title: "Looking into space",
+        text: "His eyes speak to the stars and open onto wonder — dragons, dreams, and futures with no fixed limit. Looking outward is permission to imagine boldly: you are not small, and the world (and beyond it) is wide enough for you."
+      },
+      didi: {
+        title: "Looking into Didi’s eyes",
+        text: "When he looks into his baby brother’s eyes, he sees joy — and a mirror of himself. Didi’s eyes remind him to be proud of who he is and of the family they share. Love close at hand teaches him that his eyes are visionary, not something to hide."
+      }
+    };
+
+    const blurb = document.getElementById("look-blurb");
+    const title = document.getElementById("blurb-title");
+    const text = document.getElementById("blurb-text");
+
+    document.querySelectorAll(".look-choice").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.look;
+        document.querySelectorAll(".look-choice").forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+        title.textContent = blurbs[key].title;
+        text.textContent = blurbs[key].text;
+        blurb.hidden = false;
+      });
+    });
+  </script>
 </body>
 </html>

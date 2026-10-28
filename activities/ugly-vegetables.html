@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,550;0,9..144,600;1,9..144,400&family=Outfit:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/activities.css" />
 </head>
 <body>
   <header class="site-header">
@@ -22,17 +23,170 @@
 
   <main class="page">
     <a class="page-back" href="../books/ugly-vegetables.html">← Back to book</a>
-    <article class="reflection-body">
-      <p class="eyebrow" style="font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ember);">Activity</p>
-      <h1>The Ugly Vegetables</h1>
-      <div class="placeholder-note">
-        Activity coming next — paste your prompts, materials, and steps here when you’re ready.
+
+    <div class="activity-shell">
+      <p class="eyebrow" style="font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ember);margin:0 0 0.5rem;">Activity</p>
+      <h1>Pulling the Vegetables</h1>
+      <p class="activity-intro">Click each vegetable poking out of the garden to pull it up. Learn how to say it, write it, and what it is. When every vegetable is pulled, make the soup — and neighbors will bring flowers!</p>
+
+      <div class="progress-pill" id="veg-progress" aria-live="polite">0 of 7 pulled</div>
+
+      <div class="garden" aria-label="Interactive vegetable garden">
+        <div class="garden-sky-deco" aria-hidden="true">✦ ✦</div>
+        <div class="soil-line" aria-hidden="true"></div>
+        <div class="veg-bed" id="veg-bed"></div>
       </div>
-    </article>
+
+      <div class="veg-panel" id="veg-panel" hidden aria-live="polite">
+        <p class="chars" id="veg-chars"></p>
+        <p class="pinyin" id="veg-pinyin"></p>
+        <p class="say" id="veg-say"></p>
+        <p class="about" id="veg-about"></p>
+      </div>
+
+      <div class="garden-actions">
+        <button type="button" class="btn btn-primary" id="make-soup" disabled>Make the soup</button>
+        <button type="button" class="reset-link" id="reset-garden">Reset garden</button>
+      </div>
+
+      <div class="soup-stage" id="soup-stage" hidden>
+        <div class="soup-pot" aria-hidden="true"></div>
+        <h2 style="font-family:var(--font-display);margin:0 0 0.5rem;">Ugly Vegetable Soup!</h2>
+        <p style="margin:0 auto;max-width:34rem;">The soup smells so good the neighbors come knocking — and they bring flowers from their gardens to share. What looked “ugly” becomes the tastiest, most aromatic soup of all.</p>
+        <div class="flowers" aria-hidden="true">🌸 🌼 🌻 🌺 🌷 💮</div>
+        <p style="font-family:var(--font-ui);font-size:0.85rem;opacity:0.7;margin:1rem 0 0;">Based on the glossary &amp; recipe at the end of <em>The Ugly Vegetables</em> by Grace Lin.</p>
+      </div>
+    </div>
   </main>
 
   <footer class="site-footer">
     <p>Looking Closely · Children’s literature project</p>
   </footer>
+
+  <script>
+    const veggies = [
+      {
+        id: "kong",
+        kind: "leafy",
+        short: "Hollow heart",
+        chars: "空心菜",
+        pinyin: "kōng xīn cài",
+        say: "Say it: kung shin zai",
+        about: "This literally means “hollow heart vegetable.” The stem is hollow, like a tube."
+      },
+      {
+        id: "xian",
+        kind: "redleaf",
+        short: "Red-lined",
+        chars: "莧菜",
+        pinyin: "xiàn cài",
+        say: "Say it: shen zai",
+        about: "This is a red-lined, red-rimmed vegetable."
+      },
+      {
+        id: "jiu",
+        kind: "grass",
+        short: "Chinese leeks",
+        chars: "韭菜",
+        pinyin: "jiǔ cài",
+        say: "Say it: joe zai",
+        about: "Also called Chinese leeks, these look like blades of grass."
+      },
+      {
+        id: "tong",
+        kind: "frilly",
+        short: "Chrysanthemum greens",
+        chars: "茼蒿",
+        pinyin: "tóng hāo",
+        say: "Say it: tung how",
+        about: "These have chrysanthemum-like flowers and edible leaves."
+      },
+      {
+        id: "xiao",
+        kind: "bumpy",
+        short: "Chinese cucumber",
+        chars: "小胡瓜",
+        pinyin: "xiǎo hú guā",
+        say: "Say it: show hwang gwa",
+        about: "Also called Chinese cucumbers, these are long, thin, and covered with bumps."
+      },
+      {
+        id: "si",
+        kind: "ridge",
+        short: "Sponge gourd",
+        chars: "絲瓜",
+        pinyin: "sī guā",
+        say: "Say it: see gwa",
+        about: "The inside of this vegetable is spongy-looking. It tastes best when it is fresh."
+      },
+      {
+        id: "ku",
+        kind: "bitter",
+        short: "Bitter melon",
+        chars: "苦瓜",
+        pinyin: "kǔ guā",
+        say: "Say it: coo gwa",
+        about: "The Chinese means “bitter melon.” It is brightly colored, bumpy, and bittersweet."
+      }
+    ];
+
+    const bed = document.getElementById("veg-bed");
+    const panel = document.getElementById("veg-panel");
+    const progress = document.getElementById("veg-progress");
+    const makeSoup = document.getElementById("make-soup");
+    const soupStage = document.getElementById("soup-stage");
+    const pulled = new Set();
+
+    function updateProgress() {
+      progress.textContent = `${pulled.size} of ${veggies.length} pulled`;
+      makeSoup.disabled = pulled.size < veggies.length;
+    }
+
+    function showVeg(v) {
+      document.getElementById("veg-chars").textContent = v.chars;
+      document.getElementById("veg-pinyin").textContent = v.pinyin;
+      document.getElementById("veg-say").textContent = v.say;
+      document.getElementById("veg-about").textContent = v.about;
+      panel.hidden = false;
+    }
+
+    veggies.forEach((v) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "veg";
+      btn.dataset.kind = v.kind;
+      btn.dataset.id = v.id;
+      btn.setAttribute("aria-label", `Pull ${v.pinyin}`);
+      btn.innerHTML = `<span class="veg-sprout" aria-hidden="true"></span><span class="veg-hole" aria-hidden="true"></span><span class="veg-label">${v.short}</span>`;
+      btn.addEventListener("click", () => {
+        if (pulled.has(v.id)) return;
+        pulled.add(v.id);
+        btn.classList.add("is-pulled");
+        btn.disabled = true;
+        showVeg(v);
+        updateProgress();
+      });
+      bed.appendChild(btn);
+    });
+
+    makeSoup.addEventListener("click", () => {
+      soupStage.hidden = false;
+      soupStage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+
+    document.getElementById("reset-garden").addEventListener("click", () => {
+      pulled.clear();
+      panel.hidden = true;
+      soupStage.hidden = true;
+      makeSoup.disabled = true;
+      bed.querySelectorAll(".veg").forEach((btn) => {
+        btn.classList.remove("is-pulled");
+        btn.disabled = false;
+      });
+      updateProgress();
+    });
+
+    updateProgress();
+  </script>
 </body>
 </html>

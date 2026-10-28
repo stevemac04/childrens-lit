@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,550;0,9..144,600;1,9..144,400&family=Outfit:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/activities.css" />
 </head>
 <body>
   <header class="site-header">
@@ -22,17 +23,73 @@
 
   <main class="page">
     <a class="page-back" href="../books/i-dream-of-popo.html">← Back to book</a>
-    <article class="reflection-body">
-      <p class="eyebrow" style="font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ember);">Activity</p>
-      <h1>I Dream of Popo</h1>
-      <div class="placeholder-note">
-        Activity coming next — paste your prompts, materials, and steps here when you’re ready.
+
+    <div class="activity-shell">
+      <p class="eyebrow" style="font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ember);margin:0 0 0.5rem;">Activity</p>
+      <h1>How do you keep Popo close?</h1>
+      <p class="activity-intro">Even across an ocean, love finds a way. Choose a way the girl stays connected with her grandmother — then read how that bond holds.</p>
+
+      <div class="remember-grid" role="group" aria-label="Ways to remember Popo">
+        <button type="button" class="remember-card" data-way="facetime" aria-pressed="false">
+          <span class="remember-icon" aria-hidden="true">📱</span>
+          <h2>On FaceTime</h2>
+          <p class="hint">Across the sea, in real time</p>
+        </button>
+        <button type="button" class="remember-card" data-way="cooking" aria-pressed="false">
+          <span class="remember-icon" aria-hidden="true">🥟</span>
+          <h2>Cooking &amp; tradition</h2>
+          <p class="hint">Her dumplings, her kitchen</p>
+        </button>
+        <button type="button" class="remember-card" data-way="dreams" aria-pressed="false">
+          <span class="remember-icon" aria-hidden="true">🌙</span>
+          <h2>Dreams &amp; memories</h2>
+          <p class="hint">Not letting her legacy go</p>
+        </button>
       </div>
-    </article>
+
+      <div class="remember-detail" id="remember-detail" hidden aria-live="polite">
+        <h2 id="detail-title"></h2>
+        <div id="detail-body"></div>
+      </div>
+    </div>
   </main>
 
   <footer class="site-footer">
     <p>Looking Closely · Children’s literature project</p>
   </footer>
+
+  <script>
+    const ways = {
+      facetime: {
+        title: "Talking on FaceTime",
+        html: "<p>When the girl moves to America, she still waves and talks to Popo from across the sea. Video calls shrink the distance for a moment: faces, voices, and everyday check-ins keep the relationship alive even when visits are rare.</p><p>Connection here is <strong>present-tense love</strong> — showing up on the screen so Popo knows she is remembered every day, not only on holidays.</p>"
+      },
+      cooking: {
+        title: "Cooking and tradition",
+        html: "<p>Popo’s kitchen — dumplings made from scratch, Lunar New Year foods, the smell of home — travels with the girl as practice and memory. Making the foods Popo taught her is a way of carrying Taiwan into a new house.</p><p>Tradition is not only looking backward; it is <strong>hands repeating love</strong>, so Popo’s care lives on in what the family still cooks and shares.</p>"
+      },
+      dreams: {
+        title: "Dreams and memories",
+        html: "<p>Even when language softens and Popo grows older, the girl dreams of her — holding onto scent, stories, and the feeling of being rocked in Popo’s arms. Dreams and memories refuse to let that legacy disappear.</p><p>This is love that outlasts distance and time: <strong>keeping Popo in the heart</strong> so she is never only “back there,” but always part of who the girl is becoming.</p>"
+      }
+    };
+
+    const detail = document.getElementById("remember-detail");
+    const title = document.getElementById("detail-title");
+    const body = document.getElementById("detail-body");
+
+    document.querySelectorAll(".remember-card").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.way;
+        document.querySelectorAll(".remember-card").forEach((b) => {
+          b.classList.toggle("is-active", b === btn);
+          b.setAttribute("aria-pressed", b === btn ? "true" : "false");
+        });
+        title.textContent = ways[key].title;
+        body.innerHTML = ways[key].html;
+        detail.hidden = false;
+      });
+    });
+  </script>
 </body>
 </html>
